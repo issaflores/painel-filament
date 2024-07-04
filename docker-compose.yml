@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  filament:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./v2:/var/www/html
+    environment:
+      - APP_ENV=local
+    networks:
+      - app-network
+
+  legacy:
+    image: legacy-image
+    networks:
+      - app-network
+
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      - filament
+      - legacy
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
