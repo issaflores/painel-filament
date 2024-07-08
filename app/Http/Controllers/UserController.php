@@ -10,14 +10,14 @@ class UserController extends Controller
 {
     public function store(Request $request)
     {
-        // Valide os dados recebidos
+        // Valiar os dados recebidos
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
-        // Crie o usuário
+        // Criar o usuário
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],

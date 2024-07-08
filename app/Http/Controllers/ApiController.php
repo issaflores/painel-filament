@@ -6,16 +6,15 @@ use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    public function store(Request $request)
+    public function store(CreateUserRequest $request)
     {
         // Lógica para salvar o usuário
         // Exemplo básico:
-        $user = User::create([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => bcrypt($request->input('password')),
-        ]);
+        
+        { $data = $request->validated();
+        $user = User::$user = User::create($data);
 
-        return response()->json($user, 201);
+            return formatJson(status: 201, message:"Sucesso", data:$user);
+        }
     }
 }
