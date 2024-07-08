@@ -2,36 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUserRequest;
-use App\Models\User;
-use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
-    use ApiResponse;
-
-    public function show($id)
+    public function store(Request $request)
     {
-        $user = User::find($id);
-
-        if ($user) {
-            return $this->successResponse($user, 'User found', 200);
-        }
-
-        return $this->errorResponse('User not found', 404);
-    }
-
-    public function store(StoreUserRequest $request)
-    {
-        $data = $request->validated();
-
+        // Lógica para salvar o usuário
+        // Exemplo básico:
         $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
         ]);
 
-        return $this->successResponse($user, 'User created successfully', 201);
+        return response()->json($user, 201);
     }
 }
