@@ -29,8 +29,9 @@ class UserResource extends Resource
         return $form
             ->schema([
                 TextInput::make('name')->required(),
-                TextInput::make('email')->email(),
-                TextInput::make('password')->password(),
+                TextInput::make('email')->email()->unique(ignoreRecord: true),
+                TextInput::make('password')->password()->required(fn ($livewire) => $livewire instanceof \Filament\Resources\Pages\CreateRecord),
+                TextInput::make('group')->required(),
 
             ]);
     }
@@ -40,8 +41,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id'),
-                TextColumn::make('name'),
-                TextColumn::make('email')
+                TextColumn::make('name')->searchable(),
+                TextColumn::make('email')->searchable(),
             ])
             ->filters([
                 // Aqui podem ser configurados filtros, mas está vazio no exemplo

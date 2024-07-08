@@ -1,22 +1,28 @@
 <?php
 
-namespace App\Filament;
+namespace App\Providers;
 
-use App\Filament\Resources\UserResource;
-use Filament\Filament;
 use Illuminate\Support\ServiceProvider;
 
-class FilamentServiceProvider extends ServiceProvider
+class AppServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-        Filament::registerResource(UserResource::class);
-
-        // Outros registros e configurações do Filament podem ser adicionados aqui
-    }
-
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
     public function register()
     {
-        // Registros adicionais do serviço podem ser adicionados aqui
+        // Remova qualquer declaração duplicada de App\Filament\FilamentServiceProvider aqui
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Outras configurações
     }
 }
