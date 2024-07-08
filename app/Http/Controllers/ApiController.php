@@ -2,19 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateUserRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
     public function store(CreateUserRequest $request)
     {
-        // Lógica para salvar o usuário
-        // Exemplo básico:
-        
-        { $data = $request->validated();
-        $user = User::$user = User::create($data);
-
-            return formatJson(status: 201, message:"Sucesso", data:$user);
-        }
+        $validated = $request->validated();
+        $user = User::create($validated);
+        return response()->json(['message' => 'User created successfully', 'user' => $user]);
     }
 }
